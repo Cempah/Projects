@@ -1,0 +1,57 @@
+"""
+Кодинг-марафон. Задача № 9.
+
+Задание:
+
+Напишите функцию, которая будет возвращать строку, представляющую собой ASCII-рисунок ромба.
+На вход функция получает одну букву латинского алфавита в верхнем регистре и один символ, который
+будет использован в качестве фона для рисунка:
+
+    >> diamond('A')
+    A
+
+    >> diamond('B')
+     A
+    B B
+     A
+
+    >> diamond('D', '-')
+    ---A---
+    --B-B--
+    -C---C-
+    D-----D
+    -C---C-
+    --B-B--
+    ---A---
+
+Сигнатура: def diamond(letter: str, background: str=' ') -> str:
+
+Примечания:
+
+- КАЖДАЯ строка рисунка заканчивается символом '\n',
+- на вход может подаваться любая из 26 букв латинского алфавита и любой ASCII-символ как параметр
+background,
+- предполагается, что ввод всегда валиден, не нужно проверок и исключений.
+"""
+
+def diamond(letter: str, background: str=' ') -> str:
+    alphabet = [i for i in map(chr, range(*map(ord, ['A', 'Z'])))]
+    edge = (alphabet.index(letter))
+    middle = 0
+    output = []
+    while edge >= 0:
+        for i in alphabet[:edge + 1]:
+            row = (background * edge + i + background * middle + i + background * edge)
+            output.append(row[:len(row)//2]+row[len(row)//2+1:])
+            edge -= 1
+            middle += 2
+
+
+    print(*output,sep='\n')
+    print(*output[edge-1::-1], sep='\n')
+
+# Пример:
+diamond('A')
+diamond('B')
+diamond('D', '-')
+diamond('E', '*')
